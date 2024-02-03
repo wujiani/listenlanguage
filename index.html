@@ -18,19 +18,48 @@
         }
 
         .audioButton {
-            display: block;
+            display: flex;
+            align-items: center;
             margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <div class="audioButtonsContainer">
-        <button class="audioButton">你今天好吗</button>
-        <button class="audioButton">今天天气真好</button>
-        <button class="audioButton">내일 나가서 놀자</button>
+        <div class="audioButton" id="button1" onclick="toggleAudio('button1')">
+            <span>你今天好吗</span>
+            <button class="iconButton" onclick="toggleMessage('button1', this)">🔊</button>
+        </div>
+        <div class="audioButton" id="button2" onclick="toggleAudio('button2')">
+            <span>今天天气真好</span>
+            <button class="iconButton" onclick="toggleMessage('button2', this)">🔊</button>
+        </div>
+        <div class="audioButton" id="button3" onclick="toggleAudio('button3')">
+            <span>明天出去玩吧</span>
+            <button class="iconButton" onclick="toggleMessage('button3', this)">🔊</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
+    <script>
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            if (iconButton.innerHTML === '🔊') {
+                iconButton.innerHTML = '你好';
+            } else {
+                iconButton.innerHTML = '🔊';
+            }
+        }
+    </script>
 </body>
 </html>

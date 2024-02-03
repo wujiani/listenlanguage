@@ -27,6 +27,14 @@
             margin-left: 5px; /* 调整按钮之间的水平间距 */
             cursor: pointer;
         }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
     </style>
 </head>
 <body>
@@ -54,10 +62,18 @@
         }
 
         function toggleMessage(buttonId, iconButton) {
-            if (iconButton.innerHTML === '🔊') {
-                iconButton.innerHTML = '你好';
-            } else {
-                iconButton.innerHTML = '🔊';
+            switch (buttonId) {
+                case 'button1':
+                    iconButton.innerHTML = iconButton.innerHTML === '🔊' ? '괜찮으세요' : '🔊';
+                    break;
+                case 'button2':
+                    iconButton.innerHTML = iconButton.innerHTML === '🔊' ? '오늘 날씨가 좋다' : '🔊';
+                    break;
+                case 'button3':
+                    iconButton.innerHTML = iconButton.innerHTML === '🔊' ? '내일 나가서 놀자' : '🔊';
+                    break;
+                default:
+                    break;
             }
         }
     </script>

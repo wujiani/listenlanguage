@@ -1,6 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     // 放置所有音频文件的路径
-    var audioFiles = ['54370935.mp3',
+    var audioFiles = ['54448380.mp3',
+'54448390.mp3',
+'54448398.mp3',
+'54448408.mp3',
+'54448419.mp3',
+'54448431.mp3',
+'54448435.mp3',
+'54448442.mp3',
+'54448447.mp3',
+'54370935.mp3',
 '54370938.mp3',
 '54370940.mp3',
 '54370944.mp3',

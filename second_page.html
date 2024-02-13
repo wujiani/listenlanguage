@@ -45,6 +45,9 @@
     </style>
 </head>
 <body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
     <div class="container">
         <div class="audioButtonsContainer" id="audioButtonsContainer">
         </div>
@@ -55,6 +58,16 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
     <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = 'first_page.html';
+        });
+
+
         // 定义按钮信息数组
         const buttons = [
 {id: 'button1', text: '冬天', },{id: 'button2', text: '夏天', },{id: 'button3', text: '阴天', },{id: 'button4', text: '白天', },{id: 'button5', text: '晚上', },{id: 'button6', text: '晴天', },{id: 'button7', text: '房间', },{id: 'button8', text: '外面', },{id: 'button9', text: '家', },{id: 'button10', text: '茶', },{id: 'button11', text: '九', },{id: 'button12', text: '今天', },{id: 'button13', text: '学校', },{id: 'button14', text: '票', },{id: 'button15', text: '纳豆', },{id: 'button16', text: '七', },{id: 'button17', text: '脏的猫', },{id: 'button18', text: '狗', },{id: 'button19', text: '鸟', },{id: 'button20', text: '背部', },{id: 'button21', text: '耳朵', },{id: 'button22', text: '眼睛', },{id: 'button23', text: '白', },{id: 'button24', text: '漫画', },{id: 'button25', text: '银行', },{id: 'button26', text: '喝', },{id: 'button27', text: '酒', },{id: 'button28', text: '红', },{id: 'button29', text: '甜的', },{id: 'button30', text: '地图', },{id: 'button31', text: '风', },{id: 'button32', text: 'emoji', },{id: 'button33', text: '水果', },{id: 'button34', text: '电话', },{id: 'button35', text: '包', },{id: 'button36', text: '便当', },{id: 'button37', text: '天妇罗', },{id: 'button38', text: '铅笔', },
@@ -115,4 +128,6 @@
         });
     </script>
 </body>
+
+
 </html>

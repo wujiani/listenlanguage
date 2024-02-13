@@ -113,7 +113,7 @@ texts = phrases
 # voice_value = 'ko-KR-JennyMultilingualV2Neural'
 
 language_value = 'ja-JP'
-voice_value = 'ja-JP-NanamiNeural'
+voice_value = 'ja-JP-Takumi-NTTS'
 
 from openpyxl import load_workbook
 

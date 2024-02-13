@@ -11,7 +11,14 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            margin-top: 20px; /* 添加顶部间距 */
         }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
 
         .audioButtonsContainer {
             text-align: center;
@@ -38,10 +45,10 @@
     </style>
 </head>
 <body>
-
-    <div class="audioButtonsContainer" id="audioButtonsContainer">
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
     </div>
-
     <script src="script.js"></script>
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"

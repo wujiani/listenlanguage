@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一个页面</title>
+</head>
+<body>
+    <!-- 跳转按钮 -->
+    <button id="goToSecondPage">进入第二页</button>
+
+    <script>
+        // 获取按钮
+        const goToSecondPageButton = document.getElementById('goToSecondPage');
+
+        // 后台输入的日期
+        const selectedDate = '2024-02-13';
+
+        // 设置按钮文本为日期
+        goToSecondPageButton.textContent = selectedDate;
+
+        // 添加点击事件监听器
+        goToSecondPageButton.addEventListener('click', function() {
+            // 构建第二页的 URL，并在其中包含日期作为查询参数
+            const secondPageURL = 'second_page.html?date=' + encodeURIComponent(selectedDate);
+            // 跳转到第二页
+            window.location.href = secondPageURL;
+        });
+    </script>
+</body>
+</html>

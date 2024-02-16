@@ -8,16 +8,9 @@ from selenium.webdriver.support.ui import Select
 import requests
 
 import openpyxl
+import os
+from datetime import datetime
 
-# 打开Excel文件
-# workbook = openpyxl.load_workbook('C:/Users/19wuj/Desktop/listenlanguage/phrases.xlsx')
-workbook = openpyxl.load_workbook('C:/Users/19wuj/PycharmProjects/listenlanguage/phrases_jp.xlsx')
-
-# 选择工作表
-sheet = workbook['Sheet1']
-
-# 从第一列中读取所有单元格的值，并存储在一个列表中
-phrases = [cell.value for cell in sheet['A'] if cell.value]
 
 def login_and_get_cookies(browser):
     # 登录
@@ -56,7 +49,7 @@ def login_and_get_cookies(browser):
         cookie_dict[cookie['name']] = cookie['value']
     return cookie_dict
 
-def generate_and_download_audio(browser, text, language_value, voice_value, cookie_dict, i):
+def generate_and_download_audio(sheet, browser, text, language_value, voice_value, cookie_dict, i, mp3_path):
     browser.refresh()
     # 输入文字
     input_text = browser.find_element(By.ID, 'id_text')
@@ -81,15 +74,18 @@ def generate_and_download_audio(browser, text, language_value, voice_value, cook
     download_link = download_button.get_attribute("href")
 
     # 下载文件并保存
-    download_and_save_file(text, download_link, cookie_dict, i)
+    download_and_save_file(sheet, text, download_link, cookie_dict, i, mp3_path)
 
-def download_and_save_file(filename, download_link, cookie_dict, i):
+def download_and_save_file(sheet, filename, download_link, cookie_dict, i, mp3_path):
     response = requests.get(download_link, cookies=cookie_dict)
     if response.status_code == 200:
         print("down",download_link)
-        file_name = download_link.split('/')[-2]
+        file_name = download_link.split('/')[-2]+'.mp3'
         print(file_name)
-        with open(f"{file_name}.mp3", "wb") as file:
+        mp3_path_concrete = os.path.join(mp3_path, file_name)
+        print(mp3_path_concrete)
+        os.makedirs(os.path.dirname(mp3_path_concrete), exist_ok=True)
+        with open(mp3_path_concrete, "wb") as file:
             file.write(response.content)
         print(f"{filename} 文件下载成功")
         sheet.cell(row=i, column=3, value=file_name)
@@ -107,37 +103,65 @@ browser.get('https://ondoku3.com/zh-hans/')
 # 登录并获取cookie
 cookie_dict = login_and_get_cookies(browser)
 
-# 待生成和下载的文字列表
-texts = phrases
-# language_value = 'ko-KR'
-# voice_value = 'ko-KR-JennyMultilingualV2Neural'
 
-language_value = 'ja-JP'
-voice_value = 'ja-JP-Takumi-NTTS'
+# 打开Excel文件
+def get_file_paths(date_str):
+    date_obj = datetime.strptime(date_str, '%Y-%m-%d')
 
-from openpyxl import load_workbook
+    year = date_obj.strftime('%Y')
+    month = date_obj.strftime('%Y-%m')
+    day = date_obj.strftime('%Y-%m-%d')
 
-# 打开 Excel 文件
-# workbook = load_workbook('C:/Users/19wuj/PycharmProjects/listenlanguage/phrases.xlsx')
-workbook = load_workbook('C:/Users/19wuj/PycharmProjects/listenlanguage/phrases_jp.xlsx')
+    xlsx_path = os.path.join('.\\context', year, month, day, day + '.xlsx')
+    year_month = date_str[:7]  # 提取年和月部分，例如：'2024-02'
+    mp3_path = f"../context/{date_str[:4]}/{year_month}/{date_str}/"
+
+    return xlsx_path, mp3_path
+
+# 使用示例
+###############################################
+date_str = '2024-02-16'
+###############################################
+xlsx_path, mp3_path = get_file_paths(date_str)
+
+# excel_file = 'C:/Users/19wuj/PycharmProjects/listenlanguage2024-02-16.xlsx'
+workbook = openpyxl.load_workbook(xlsx_path)
+
+#
+# from openpyxl import load_workbook
+#
+# # 打开 Excel 文件
+# workbook = load_workbook(excel_file)
+
+languages = {
+            # 'jp':('ja-JP', 'ja-JP-Takumi-NTTS'),
+             'it':('it-IT', 'it-IT-BenignoNeural'),
+             # 'kr':('ko-KR', 'ko-KR-JennyMultilingualV2Neural')
+            }
 
 # 选择工作表
-sheet = workbook['Sheet1']
+for language in languages:
+    try:
+        sheet = workbook[language]
+    except KeyError:
+        break
+    language_value = languages[language][0]
+    voice_value = languages[language][1]
 
+    # 从第一列中读取所有单元格的值，并存储在一个列表中
+    phrases = [cell.value for cell in sheet['A'] if cell.value]
+    # # 待生成和下载的文字列表
+    # texts = phrases
 
-
-# 写入数据到第三列
-for i, text in enumerate(phrases, start=1):
-    print("i",i)
-    generate_and_download_audio(browser, text, language_value, voice_value, cookie_dict,i)
+    # 写入数据到第三列
+    for i, text in enumerate(phrases, start=1):
+        print("i",i)
+        generate_and_download_audio(sheet, browser, text, language_value, voice_value, cookie_dict,i, mp3_path)
 
 
 # 保存更改
-# workbook.save('C:/Users/19wuj/PycharmProjects/listenlanguage/phrases.xlsx')
-workbook.save('C:/Users/19wuj/PycharmProjects/listenlanguage/phrases_jp.xlsx')
+workbook.save(xlsx_path)
 
-# for text in texts:
-#     generate_and_download_audio(browser, text, language_value, voice_value, cookie_dict)
 
 # 关闭浏览器
 browser.quit()

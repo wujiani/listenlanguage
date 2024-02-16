@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 20px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+    <script src="2024-02-15.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+{id: 'button1', text: '(日)你好', },{id: 'button2', text: '(日)再见', },{id: 'button3', text: '(日)对不起/请问', },{id: 'button4', text: '(日)谢谢', },{id: 'button5', text: '(日)我回来了', },{id: 'button6', text: '(日)我吃饱了', },{id: 'button7', text: '(意)包包', },{id: 'button8', text: '(意)鞋子', },{id: 'button9', text: '(意)凉鞋', },{id: 'button10', text: '(意)号码', },{id: 'button11', text: '(意)看', },{id: 'button12', text: '(意)试穿', },{id: 'button13', text: '(韩)第1课', },{id: 'button14', text: '(韩)课题', },{id: 'button15', text: '(韩)说名字', },{id: 'button16', text: '(韩)语法', },{id: 'button17', text: '(韩)词汇', },{id: 'button18', text: '(韩)您好吗？', },{id: 'button19', text: '(韩)我（谦逊语）', },{id: 'button20', text: '(韩)老师', },{id: 'button21', text: '(韩)姓', },{id: 'button22', text: '(韩)姓氏', },{id: 'button23', text: '(韩)请找出姓氏和名字', },{id: 'button24', text: '(韩)延世大学', },{id: 'button25', text: '(韩)韩语教师', },{id: 'button26', text: '(韩)经济学系', },{id: 'button27', text: '(韩)英语文学系', },{id: 'button28', text: '(韩)请制作名片。', },{id: 'button29', text: '(韩)韩语学校', },{id: 'button30', text: '(韩)这是我的书桌。', },{id: 'button31', text: '(韩)我是学生。', },{id: 'button32', text: '(韩)这个孩子是我的女儿。', },{id: 'button33', text: '(韩)这里是我们家。', },{id: 'button34', text: '(韩)那位是医生。', },{id: 'button35', text: '(韩)我的（中性）', },{id: 'button36', text: '(韩)我的（谦词）', },{id: 'button37', text: '(韩)我的', },{id: 'button38', text: '(韩)括号', },{id: 'button39', text: '(韩)印度', },{id: 'button40', text: '(韩)请写下并阅读。', },{id: 'button41', text: '(韩)首尔是韩国的首都。', },{id: 'button42', text: '(韩)我是韩国人。', },{id: 'button43', text: '(韩)弟弟身材高大。我个子矮小。', },{id: 'button44', text: '(韩)我喜欢肉。我不喜欢鱼。', },{id: 'button45', text: '(韩)圆圈', },{id: 'button46', text: '(韩)请在正确的选项上打勾。', },{id: 'button47', text: '(韩)是的，您好吗？', },{id: 'button48', text: '(韩)我是李。', },{id: 'button49', text: '(韩)我是魏。', },
+
+];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+           ['こんにちは','さようなら','すみません','ありがとう','ただいま','ごちそうさまでした','la borsa','le scarpe','i sandali','il numero','vedere','provare','제1과','과제','이름 말하기','문법','어휘','안녕하십니까?','저','선생님','성','성씨','성과 이름을 찿으십시오','연세대학교','한국어 강사','경제학과','영어영문학과','명함을 만드십시오.','한국어 학당','이것은 제 책상입니다.','저는 학생입니다.','이 아이가 제 딸입니다.','여기가 우리 집입니다.','그분은 의사입니다.','내','제','우리','괄호','인도','쓰고 읽으십시오','서울은 한국의 수도입니다.','저는 한국 사람입니다.','동생은 기가 큽니다. 저는 키가 작습니다.','고기를 좋아합니다. 생선은 싫어합니다.','동그라미','맞는 것에 0표시를 하십시오.','네, 안녕하십니까?','리에입니다.','저는 웨이입니다.',]
+            ;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+</body>
+
+
+</html>

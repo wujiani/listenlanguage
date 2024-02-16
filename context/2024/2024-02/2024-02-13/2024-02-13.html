@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 20px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+            word-wrap: break-word; /* 允许长单词换行显示 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+    <script src="2024-02-13.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+{id: 'button1', text: '(日)你好', },{id: 'button2', text: '(日)再见', },{id: 'button3', text: '(日)寿司', },{id: 'button4', text: '(日)想要', },{id: 'button5', text: '(日)蔬菜', },{id: 'button6', text: '(日)喜欢', },{id: 'button7', text: '(日)照烧', },{id: 'button8', text: '(日)穿', },{id: 'button9', text: '(日)四', },{id: 'button10', text: '(日)读', },{id: 'button11', text: '(日)我', },{id: 'button12', text: '(日)六', },{id: 'button13', text: '(日)二', },{id: 'button14', text: '(日)一', },{id: 'button15', text: '(日)三', },{id: 'button16', text: '(日)早', },{id: 'button17', text: '(日)七', },{id: 'button18', text: '(意)早上好！', },{id: 'button19', text: '(意)晚上好！', },{id: 'button20', text: '(意)晚安！', },{id: 'button21', text: '(意)你好！', },{id: 'button22', text: '(意)Rossi女士，早上好。', },{id: 'button23', text: '(意)Lucchetti先生，早上好。', },{id: 'button24', text: '(意)你叫什么名字？', },{id: 'button25', text: '(意)您叫什么名字？', },{id: 'button26', text: '(意)你好，我叫朱利奥，你叫什么名字？', },{id: 'button27', text: '(意)你好，我是 Yalina。很高兴认识你！', },{id: 'button28', text: '(意)早上好，我叫Maria，您叫什么名字？', },{id: 'button29', text: '(意)我是 Chiara Razzi。很高兴认识您！', },{id: 'button30', text: '(意)我想要一杯咖啡和一个角面包，麻烦您了', },{id: 'button31', text: '(意)不，谢谢，我不想要。我们以后再说。', },{id: 'button32', text: '(意)这段时间你去哪里？', },{id: 'button33', text: '(意)我想要一个开胃菜和一个主菜，我点托特里尼。', },{id: 'button34', text: '(意)对我来说只要一个主菜，米饭就好了。', },{id: 'button35', text: '(意)好的，那就一个烩牛腱。', },
+];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+            ["こんにちは","さようなら","すし","ほしい","やさい","すき","てりやき","きる","よん","よむ","わたし","ろく","に","いち","さん","おはよう","なな","Buongiorno!","Buona sera!","Buona notte!","Ciao!","Buongiorno, signora Rossi.","Buongiorno, signor Lucchetti.","Come ti chiami?","Come si chiama?","Ciao, mi chiamo Giulio, e tu come ti chiami?","Ciao, sono Yalina. piacere!","Buongiorno, mi chiamo Maria, e Lei come si chiama?","Sono Chiara Razzi. piacere!"," Vorrei un caffè e un cornetto, per favore.","No, grazie, non mi va. Facciamo un'altra volta.","Dove va in questo periodo?","Vorrei un anti pasto e un primo, prendo i tortelli.","Per me solo un primo, il risotto per favore.","Va bene, allora un ossobuco.",]
+           ;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 20px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+    <script src="2024-02-16.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+{id: "button1", text: "(日)日本", },{id: "button2", text: "(日)中国", },{id: "button3", text: "(日)人", },{id: "button4", text: "(日)中国人", },{id: "button5", text: "(日)日本人", },{id: "button6", text: "(日)本", },{id: "button7", text: "(日)田", },{id: "button8", text: "(日)田中", },{id: "button9", text: "(日)初次见面", },{id: "button10", text: "(日)田中先生是中国人", },{id: "button11", text: "(日)田中先生是日本人", },{id: "button12", text: "(日)我是田中", },{id: "button13", text: "(日)我叫田中", },{id: "button14", text: "(日)初次见面，我叫田中", },{id: "button15", text: "(意)几点了？", },{id: "button16", text: "(意)几点了？", },{id: "button17", text: "(意)现在是一点。", },{id: "button18", text: "(意)现在是中午。", },{id: "button19", text: "(意)现在是午夜。", },{id: "button20", text: "(意)现在是两点。", },{id: "button21", text: "(意)现在是两点一刻。", },{id: "button22", text: "(意)现在是两点半。", },{id: "button23", text: "(意)现在是两点四十五分。", },{id: "button24", text: "(意)四分之一", },{id: "button25", text: "(意)一刻钟", },{id: "button26", text: "(意)一半", },{id: "button27", text: "(意)减去", },{id: "button28", text: "(韩)第二课", },{id: "button29", text: "(韩)是哪国人？", },{id: "button30", text: "(韩)说国籍", },{id: "button31", text: "(韩)美国", },{id: "button32", text: "(韩)美人", },{id: "button33", text: "(韩)中国", },{id: "button34", text: "(韩)日本", },{id: "button35", text: "(韩)本人", },{id: "button36", text: "(韩)是这样吗？", },{id: "button37", text: "(韩)是这样", },{id: "button38", text: "(韩)英国", },{id: "button39", text: "(韩)德国", },{id: "button40", text: "(韩)俄罗斯", },{id: "button41", text: "(韩)蒙古", },{id: "button42", text: "(韩)泰国", },{id: "button43", text: "(韩)韩国", },{id: "button44", text: "(韩)澳大利亚", },{id: "button45", text: "(韩)光化门", },{id: "button46", text: "(韩)例子", },{id: "button47", text: "(韩)请连接", },{id: "button48", text: "(韩)这位是哪国人？", },{id: "button49", text: "(韩)现在是两点吗？", },{id: "button50", text: "(韩)这里是新村吗？", },{id: "button51", text: "(韩)这本书是谁的书？", },{id: "button52", text: "(韩)今天是几号？", },{id: "button53", text: "(韩)请看图并提问。", },{id: "button54", text: "(韩)看图问答。", },{id: "button55", text: "(韩)是美国人吗？", },{id: "button56", text: "(韩)不，是澳大利亚人。", },{id: "button57", text: "(韩)是韩国人吗？", },{id: "button58", text: "(韩)是的，是韩国人。", },{id: "button59", text: "(韩)是日本人吗？", },{id: "button60", text: "(韩)是的，是日本人。", },{id: "button61", text: "(韩)是哪国人？", },{id: "button62", text: "(韩)是美国人。李先生是中国人吗？", },{id: "button63", text: "(韩)不，我是日本人。", },{id: "button64", text: "(韩)啊，是这样吗？", },
+
+
+
+        ];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+
+           ["にほん","ちゅうごく","じん","ちゅうごくじん","にほんじん","ほん","た","たなか","はじめまして","田中さんは　中国人です","田中さは　日本人です","私は田中です","私は田中といいます","はじめまして　わたしは田中といいます","Che ore sono? ","Che ora è ?","È l'una.","È mezzogiorno.","È mezzanotte","Sono le due.","Sono le due e un quarto.","Sono le due e mezza.","Sono le tre meno un quarto.","quarto ","un quarto ","mezza","meno","제2과","어느 나라 사람입니까?","국적 말하기","미국","미인","중국","일본","본인","그렇습니까?","그렇다","영국","독일","러시아","몽골","태국","한국","호주","광화문","보기","연결하십시오","이분이 어느 나라 사람입니까?","지금이 두 시입니까?","여기가 신촌입니까?","이 책은 누구 책입니까?","오늘이 며칠입니까?","그림을 보고 질문하십시오.","그림을 보고 묻고 대답하십시오.","미국 사람입니까?","아니요, 호주 사람입니다.","한국 사람입 니까?","네, 한국 사람입니다.","일본 사람입니까?","네, 일본 사람입니다.","어느 나라 사람입니까?","미국 사람입니다. 리에 씨는 중국 사람입니까?","아니요, 저는 일본 사람입니다.","아, 그렇습니까?",]
+
+                       ;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+</body>
+
+
+</html>

@@ -6,25 +6,46 @@
     <title>第一个页面</title>
 </head>
 <body>
-    <!-- 跳转按钮 -->
-    <button id="goToSecondPage">进入第二页</button>
 
     <script>
-        // 获取按钮
-        const goToSecondPageButton = document.getElementById('goToSecondPage');
+        // 创建添加按钮的函数
+        function addButton(text, date) {
+            const button = document.createElement('button');
+            button.textContent = text;
 
-        // 后台输入的日期
-        const selectedDate = '2024-02-13';
+            // 添加点击事件监听器
+            button.addEventListener('click', function() {
+                // 使用日期作为跳转页面的文件名
+                var parts = date.split('-'); // 将日期字符串分割为年、月、日的数组
+                const pageURL = '../listenlanguage/context/' + parts[0] + '/' + parts[0] + '-' + parts[1] + '/' + date + '/' + date + '.html';
 
-        // 设置按钮文本为日期
-        goToSecondPageButton.textContent = selectedDate;
 
-        // 添加点击事件监听器
-        goToSecondPageButton.addEventListener('click', function() {
-            // 构建第二页的 URL，并在其中包含日期作为查询参数
-            const secondPageURL = 'second_page.html?date=' + encodeURIComponent(selectedDate);
-            // 跳转到第二页
-            window.location.href = secondPageURL;
+<!--                const pageURL = date + '.html';-->
+                window.location.href = pageURL;
+            });
+
+            // 将按钮添加到页面中
+            document.body.appendChild(button);
+            // 添加空格
+            document.body.appendChild(document.createTextNode(' '));
+        }
+
+        // 定义日期数组
+        const dates = [
+            '2024-02-20',
+            '2024-02-19',
+            '2024-02-18',
+            '2024-02-17',
+            '2024-02-16',
+            '2024-02-15',
+            '2024-02-13',
+            '2024-02-12',
+            // 继续添加更多日期...
+        ];
+
+        // 使用循环来添加按钮
+        dates.forEach(function(date, index) {
+            addButton(date, date);
         });
     </script>
 </body>

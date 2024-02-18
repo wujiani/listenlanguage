@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 100px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+    <script src="2024-02-18.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+{id: "button1", text: "(意)祝狩猎愉快", },{id: "button2", text: "(意)找出两个房间因健忘或不良习惯而造成的6大浪费，减少不必要的能源消耗，", },{id: "button3", text: "(意)解决方案", },{id: "button4", text: "(意)打开冰箱", },{id: "button5", text: "(意)流动的水", },{id: "button6", text: "(意)厨房灯亮", },{id: "button7", text: "(意)窗户打开时加热器打开", },{id: "button8", text: "(意)充电器在插座上", },{id: "button9", text: "(意)电视待机灯", },{id: "button10", text: "(意)探索如何释放你的创造力", },{id: "button11", text: "(意)您可以在 mulinobianco.it/vashette 上找到许多想法", },{id: "button12", text: "(意)落实你的想法", },{id: "button13", text: "(意)用这张卡片纸创造一些特别的东西", },{id: "button14", text: "(韩)第3课", },{id: "button15", text: "(韩)不是公司员工", },{id: "button16", text: "(韩)职业介绍", },{id: "button17", text: "(韩)公司员工", },{id: "button18", text: "(韩)公司", },{id: "button19", text: "(韩)公司经理", },{id: "button20", text: "(韩)那么", },{id: "button21", text: "(韩)学生", },{id: "button22", text: "(韩)大学生", },{id: "button23", text: "(韩)小学生", },{id: "button24", text: "(韩)高中生", },{id: "button25", text: "(韩)职业", },{id: "button26", text: "(韩)警察", },{id: "button27", text: "(韩)老师", },{id: "button28", text: "(韩)学生", },{id: "button29", text: "(韩)歌手", },{id: "button30", text: "(韩)医生", },{id: "button31", text: "(韩)护士", },{id: "button32", text: "(韩)银行职员", },{id: "button33", text: "(韩)秘书", },{id: "button34", text: "(韩)记者", },{id: "button35", text: "(韩)律师", },{id: "button36", text: "(韩)我不是日本人。", },{id: "button37", text: "(韩)约翰逊先生不是医生。", },{id: "button38", text: "(韩)这不是教科书。", },{id: "button39", text: "(韩)Linda不是老师。", },{id: "button40", text: "(韩)我的妈妈不是韩国人。", },{id: "button41", text: "(韩)我是日本人吗？", },{id: "button42", text: "(韩)是警察吗？", },{id: "button43", text: "(韩)不，不是警察。", },{id: "button44", text: "(韩)那么是公司员工吗？", },{id: "button45", text: "(韩)是的，我是公司员工。", },{id: "button46", text: "(韩)是学生吗？", },{id: "button47", text: "(韩)不，不是学生。", },{id: "button48", text: "(韩)那么是歌手吗？", },{id: "button49", text: "(韩)是的，我是歌手。", },{id: "button50", text: "(韩)是护士吗？", },{id: "button51", text: "(韩)不，不是护士。", },{id: "button52", text: "(韩)那么是医生吗？", },{id: "button53", text: "(韩)是的，我是医生。", },{id: "button54", text: "(韩)是公司员工吗？", },{id: "button55", text: "(韩)不，不是公司员工。", },{id: "button56", text: "(韩)那么是学生吗？", },{id: "button57", text: "(韩)是的，我是大学生。", },
+
+        ];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+
+   ["buona caccia","trova nelle due stanze i 6 sprechi dovuti a dimenticanze o cattive abitudini e riduci I consumi inutili di energia,","soluzione","frigorifero aperto","acqua che scorre","luce cucina accessa","calorifero acceso con finesta aperta","caricatore nella presa","luce stand-by TV","scopri come liberare la tua creatività","trovi tante idee su mulinobianco.it/vashette","dai forma alle tue idee","crea qualcosa di speciale con questo cartoncino","제3과","회사원이 아닙니다","직업 말하기","회사원","회사","회장","그럼","학생","대학생","초등학생","고등학생","직업","경찰","선생님","학생","가수","의사","간호사","은행원","비서","기자","변호사","저는 일본 사람이 아닙니다.","존슨 씨는 의사가 아닙 니다.","이것은 교과서가 아님 니다.","린다 씨는 선생님이 아닙니다.","우리 어머니는 한국 사람이 아닙니다.","저는 일본 사람이 아닙니까?","경찰입니까?","아니요, 경찰이 아닙니다.","그럼 회사원입니까?","네, 회사원입니다.","학생입니까?","아니요, 학생이 아닙니다","그럼 가수입니까?","네, 가수입니다","간호사입니까?","아니요, 간호사가 아닙니다","그럼 의사입니까？","네, 의사입니다","회사원입니까?","아니요, 회사원이 아닙니다.","그럼 학생입니까?","네, 대학생입니다.",]
+
+
+                                  ;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+</body>
+
+
+</html>

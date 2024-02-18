@@ -21,11 +21,11 @@ def login_and_get_cookies(browser):
 
     # 输入邮箱
     email_input = browser.find_element(By.XPATH, '/html/body/main/section/div/div/div/div/form/div[1]/input')
-    email_input.send_keys('wujiani0105@gmail.com')
+    email_input.send_keys('jiani.wu@studenti.unipd.it')
 
     # 输入密码
     password_input = browser.find_element(By.XPATH, '/html/body/main/section/div/div/div/div/form/div[2]/input')
-    password_input.send_keys('Keitakeita5+1')
+    password_input.send_keys('Keita5+1keita')
 
     # 点击登录按钮
     stay_login_button = browser.find_element(By.CLASS_NAME, 'fa')
@@ -76,19 +76,24 @@ def generate_and_download_audio(sheet, browser, text, language_value, voice_valu
     # 下载文件并保存
     download_and_save_file(sheet, text, download_link, cookie_dict, i, mp3_path)
 
+    time.sleep(5)
+
 def download_and_save_file(sheet, filename, download_link, cookie_dict, i, mp3_path):
+    print(download_link)
     response = requests.get(download_link, cookies=cookie_dict)
     if response.status_code == 200:
         print("down",download_link)
-        file_name = download_link.split('/')[-2]+'.mp3'
+        file_index = download_link.split('/')[-2]
+        file_name = file_index+'.mp3'
         print(file_name)
         mp3_path_concrete = os.path.join(mp3_path, file_name)
         print(mp3_path_concrete)
         os.makedirs(os.path.dirname(mp3_path_concrete), exist_ok=True)
+        print(mp3_path_concrete)
         with open(mp3_path_concrete, "wb") as file:
             file.write(response.content)
         print(f"{filename} 文件下载成功")
-        sheet.cell(row=i, column=3, value=file_name)
+        sheet.cell(row=i, column=3, value=file_index)
         print("i")
     else:
         print(f"{filename} 文件下载失败")
@@ -114,13 +119,13 @@ def get_file_paths(date_str):
 
     xlsx_path = os.path.join('.\\context', year, month, day, day + '.xlsx')
     year_month = date_str[:7]  # 提取年和月部分，例如：'2024-02'
-    mp3_path = f"../context/{date_str[:4]}/{year_month}/{date_str}/"
+    mp3_path = f"./context/{date_str[:4]}/{year_month}/{date_str}/"
 
     return xlsx_path, mp3_path
 
 # 使用示例
 ###############################################
-date_str = '2024-02-16'
+date_str = '2024-02-18'
 ###############################################
 xlsx_path, mp3_path = get_file_paths(date_str)
 
@@ -134,9 +139,9 @@ workbook = openpyxl.load_workbook(xlsx_path)
 # workbook = load_workbook(excel_file)
 
 languages = {
-            # 'jp':('ja-JP', 'ja-JP-Takumi-NTTS'),
+            'jp':('ja-JP', 'ja-JP-Takumi-NTTS'),
              'it':('it-IT', 'it-IT-BenignoNeural'),
-             # 'kr':('ko-KR', 'ko-KR-JennyMultilingualV2Neural')
+             'kr':('ko-KR', 'ko-KR-JennyMultilingualV2Neural')
             }
 
 # 选择工作表
@@ -144,7 +149,7 @@ for language in languages:
     try:
         sheet = workbook[language]
     except KeyError:
-        break
+        continue
     language_value = languages[language][0]
     voice_value = languages[language][1]
 

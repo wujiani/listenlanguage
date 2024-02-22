@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 100px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+            padding-bottom: 50px; /* 添加底部间距 */
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+
+    <script src="2024-02-21.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+
+{id: "button1", text: "(意)街道", },{id: "button2", text: "(意)广场", },{id: "button3", text: "(意)人行道", },{id: "button4", text: "(意)斑马线", },{id: "button5", text: "(意)交通灯", },{id: "button6", text: "(意)车站", },{id: "button7", text: "(意)拱廊", },{id: "button8", text: "(意)停车场", },{id: "button9", text: "(意)花园", },{id: "button10", text: "(意)河流", },{id: "button11", text: "(意)桥梁", },{id: "button12", text: "(意)公交车站", },{id: "button13", text: "(意)我去教堂祈祷", },{id: "button14", text: "(意)我去清真寺祈祷", },{id: "button15", text: "(意)我去警察局取文件", },{id: "button16", text: "(意)我去邮局取包裹", },{id: "button17", text: "(意)对立面", },{id: "button18", text: "(意)连接对立面，如例子所示", },{id: "button19", text: "(意)近/远", },{id: "button20", text: "(意)右/左", },{id: "button21", text: "(意)前/后", },{id: "button22", text: "(意)外/内", },{id: "button23", text: "(意)先/后", },{id: "button24", text: "(意)最后/最前", },{id: "button25", text: "(意)Amina去药店买药，遇见了一个朋友。", },{id: "button26", text: "(意)她们一起去超市。", },{id: "button27", text: "(意)然后在报摊附近等公交车回家。", },{id: "button28", text: "(意)Pedro在银行前和他哥哥有个约会。", },{id: "button29", text: "(意)他们一起坐地铁去警察局领取居留许可。", },{id: "button30", text: "(意)然后Pedro去邮局交电话费。", },{id: "button31", text: "(韩)第四课", },{id: "button32", text: "(韩)很高兴见到你", },{id: "button33", text: "(韩)交流问候", },{id: "button34", text: "(韩)第一次见面", },{id: "button35", text: "(韩)看", },{id: "button36", text: "(韩)很高兴", },{id: "button37", text: "(韩)去", },{id: "button38", text: "(韩)来", },{id: "button39", text: "(韩)见面", },{id: "button40", text: "(韩)打招呼", },{id: "button41", text: "(韩)睡觉", },{id: "button42", text: "(韩)吃", },{id: "button43", text: "(韩)穿", },{id: "button44", text: "(韩)听", },{id: "button45", text: "(韩)读", },{id: "button46", text: "(韩)写", },{id: "button47", text: "(韩)漂亮", },{id: "button48", text: "(韩)忙", },{id: "button49", text: "(韩)去学校", },{id: "button50", text: "(韩)我身高高", },{id: "button51", text: "(韩)很高兴见到你", },{id: "button52", text: "(韩)有书", },{id: "button53", text: "(韩)没有椅子", },{id: "button54", text: "(韩)谢谢", },{id: "button55", text: "(韩)抱歉", },{id: "button56", text: "(韩)请问", },{id: "button57", text: "(韩)来了", },{id: "button58", text: "(韩)有趣", },{id: "button59", text: "(韩)很多", },{id: "button60", text: "(韩)打电话", },{id: "button61", text: "(韩)要做什么？", },{id: "button62", text: "(韩)去哪里？", },{id: "button63", text: "(韩)有词典吗？", },{id: "button64", text: "(韩)没有韩国朋友吗？", },{id: "button65", text: "(韩)时间多吗？", },{id: "button66", text: "(韩)请", },{id: "button67", text: "(韩)你是谁？", },{id: "button68", text: "(韩)我的朋友是李英洙。", },{id: "button69", text: "(韩)第一次见面，我是金美善。", },{id: "button70", text: "(韩)你好，很高兴见到你。", },
+
+         ];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+["il corso","la piazza","il marciapiede","le strisce","il semaforo","la fermata","i portici","il parcheggio","il giardino","il fiume","il ponte","fermata dell'autobus","vado in chiesa per pregare","vado in moschea per pregare","vado in questura per prendere i documenti","vado in posta per ritirare il pacco","contrario","collega I contrari, come nell'esempio","vicino/lontano","a destra/a sinistra","davanti/dietro","fuori/dentro","prima/dopo","alla fine/all'inizio","Amina va a comprare le medicine in farmacia e incontra una sua amica.","Insieme vanno al supermercato.","Poi aspettano l'autobus alla fermate vicino all'edicola e tornano a casa.","Pedro ha un appuntamento con suo fratello davanti alla banca. ","Insieme prendono la metropolitana e vanno in questura a ritirare il permesso di soggiorno.","Poi Pedro va all'ufficio postale per pagare la bolletta del telefono.","제4과","반갑습니다","인사 나누기","처음 뵙겠습니다","보다","반갑다","가다","오다","만나다","인사하다","자다","먹다","입다","듣다","읽다","쓰다","예쁘다","바쁘다","학교에 갑니다.","저는 키가 큽니다.","만나서 반갑습니다.","책이 있습니다.","의자가 없습니다.","감사합니다 ","죄송합니다 ","실례합니다","옵니다","재미있습니다","많습니다","전화합니다","무엇을 합니까?","어디에 갑니까?","사전이 있습니까?","한국 친구가 없습니까?","시간이 많습니까?","쓰십시오","누구입니까?","제 친구 이영수입니다.","처음 뵙겠습니다. 김미선입니다.","안녕하십니까? 반갑습니다.",]
+
+;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 100px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+            padding-bottom: 50px; /* 添加底部间距 */
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+
+    <script src="2024-02-27.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+
+{id: "button1", text: "(日)第2课", },{id: "button2", text: "(日)这不是笔记。", },{id: "button3", text: "(日)生日", },{id: "button4", text: "(日)日语书籍", },{id: "button5", text: "(日)手表", },{id: "button6", text: "(日)手表", },{id: "button7", text: "(日)字典", },{id: "button8", text: "(日)美丽", },{id: "button9", text: "(日)图书馆", },{id: "button10", text: "(日)谢谢", },{id: "button11", text: "(日)领带", },{id: "button12", text: "(日)蛋糕", },{id: "button13", text: "(日)礼物", },{id: "button14", text: "(日)咖啡", },{id: "button15", text: "(日)笔记", },{id: "button16", text: "(日)祝贺你", },{id: "button17", text: "(日)祝贺", },{id: "button18", text: "(日)什么是~？", },{id: "button19", text: "(日)这是什么？", },{id: "button20", text: "(日)这是领带。", },{id: "button21", text: "(日)那是什么？", },{id: "button22", text: "(日)那是手表。", },{id: "button23", text: "(日)那是蛋糕。", },{id: "button24", text: "(日)那是手表。", },{id: "button25", text: "(日)田中先生的领带是哪个？", },{id: "button26", text: "(日)那个。", },{id: "button27", text: "(日)田中先生的蛋糕是哪个？", },{id: "button28", text: "(日)这个。", },{id: "button29", text: "(日)这不是我的字典。", },{id: "button30", text: "(日)这不是我的字典。", },{id: "button31", text: "(日)那不是礼物。", },{id: "button32", text: "(日)那不是礼物。", },{id: "button33", text: "(意)摩托车", },{id: "button34", text: "(意)地铁", },{id: "button35", text: "(意)汽车", },{id: "button36", text: "(意)船", },{id: "button37", text: "(意)自行车", },{id: "button38", text: "(意)从3月2日星期一到3月31日星期二，13B线路将暂时停运", },{id: "button39", text: "(意)客户服务", },{id: "button40", text: "(意)城市里有很多交通工具。", },{id: "button41", text: "(意)阿米娜乘公共汽车去市场，佩德罗骑自行车去工作。", },{id: "button42", text: "(意)在5分钟内整理字母并找到名称，就像例子中一样。", },{id: "button43", text: "(意)文斯写下所有的单词。", },{id: "button44", text: "(意)是星期日（3月1日），你在公交车站。", },{id: "button45", text: "(意)读这个告示牌并回答：是还是不是？", },{id: "button46", text: "(意)今天我可以乘坐13B线的公交车吗？", },{id: "button47", text: "(意)城市里的所有公交车都在三月份停运吗？", },{id: "button48", text: "(意)明天我必须去另一个车站等13B线的公交车吗？", },{id: "button49", text: "(意)明天我可以乘坐另一条线路的公交车吗？", },{id: "button50", text: "(意)你们几点到？", },{id: "button51", text: "(意)三点。对你来说可以吗？", },{id: "button52", text: "(意)当然！你们是步行还是想要坐公交车？", },{id: "button53", text: "(意)你离车站远吗？", },{id: "button54", text: "(意)不是很远。", },{id: "button55", text: "(意)那我们就步行吧。我们应该走哪条路？", },{id: "button56", text: "(意)很简单。从车站出来，走米兰大街。一直走到街的尽头，然后找到格拉姆斯基路。", },{id: "button57", text: "(意)向右拐，在红绿灯处走。", },{id: "button58", text: "(意)是的，我明白了。然后呢？", },{id: "button59", text: "(意)在红绿灯处左转，进入迪亚兹大街，经过一家银行，然后右转进入卡瓦尔大街，然后... 你们到了！", },{id: "button60", text: "(意)你住在卡瓦尔大街吗？", },{id: "button61", text: "(意)是的，在54号。我家对面有一家比萨店。", },{id: "button62", text: "(意)好的，再见。", },{id: "button63", text: "(意)我等你们！", },{id: "button64", text: "(意)当你从家里的窗户往外看时，你看到什么？", },{id: "button65", text: "(意)我看到一个电影院，一座大楼，一家邮局，一座公园。", },{id: "button66", text: "(意)牙科诊所", },{id: "button67", text: "(意)牙医", },{id: "button68", text: "(意)对不起，公交车站在哪里？", },{id: "button69", text: "(意)在马齐尼街，超市对面。", },{id: "button70", text: "(意)看地图并用这些词填写下面的答案，就像例子中一样。", },{id: "button71", text: "(意)对不起，医院在哪里？", },{id: "button72", text: "(意)在卡瓦尔大街尽头。", },{id: "button73", text: "(意)对不起，报摊在哪里？", },{id: "button74", text: "(意)在比萨店对面。", },{id: "button75", text: "(意)对不起，学校在哪里？", },{id: "button76", text: "(意)在加里巴尔迪大街的开头。", },{id: "button77", text: "(意)对不起，药店在哪里？", },{id: "button78", text: "(意)在酒吧和烟草店之间。", },{id: "button79", text: "(意)对不起，警察局在哪里？", },{id: "button80", text: "(意)靠近图书馆。", },{id: "button81", text: "(意)在图书馆旁边。", },{id: "button82", text: "(意)对不起，地铁站在哪里？", },{id: "button83", text: "(意)在烟草店前面。", },{id: "button84", text: "(意)在烟草店前面。", },{id: "button85", text: "(韩)这是教科书吗？", },{id: "button86", text: "(韩)说物品名称", },{id: "button87", text: "(韩)店员", },{id: "button88", text: "(韩)那个", },{id: "button89", text: "(韩)这个", },{id: "button90", text: "(韩)是的", },{id: "button91", text: "(韩)字典", },{id: "button92", text: "(韩)杂志", },{id: "button93", text: "(韩)读物书", },{id: "button94", text: "(韩)书桌", },{id: "button95", text: "(韩)钱包", },{id: "button96", text: "(韩)铅笔", },{id: "button97", text: "(韩)书", },{id: "button98", text: "(韩)橡皮擦", },{id: "button99", text: "(韩)圆珠笔", },{id: "button100", text: "(韩)钱", },{id: "button101", text: "(韩)卫兵", },{id: "button102", text: "(韩)护照", },{id: "button103", text: "(韩)身份证", },{id: "button104", text: "(韩)包", },{id: "button105", text: "(韩)手帕", },{id: "button106", text: "(韩)帽子", },{id: "button107", text: "(韩)镜子", },{id: "button108", text: "(韩)纸巾", },{id: "button109", text: "(韩)笔记本", },{id: "button110", text: "(韩)钥匙", },{id: "button111", text: "(韩)笔记本", },{id: "button112", text: "(韩)饼干", },{id: "button113", text: "(韩)纸", },{id: "button114", text: "(韩)铅笔盒", },{id: "button115", text: "(韩)富人", },{id: "button116", text: "(韩)这是书桌。", },{id: "button117", text: "(韩)这里是学校。", },{id: "button118", text: "(韩)这是书吗？", },{id: "button119", text: "(韩)朋友很多。", },{id: "button120", text: "(韩)没有椅子。", },{id: "button121", text: "(韩)我说了。", },{id: "button122", text: "(韩)你去吗？", },{id: "button123", text: "(韩)我是金英秀。", },{id: "button124", text: "(韩)谁来了？", },{id: "button125", text: "(韩)这本书是字典吗？", },{id: "button126", text: "(韩)这支铅笔是我的。", },{id: "button127", text: "(韩)这个故事由谁说的？", },{id: "button128", text: "(韩)是字典。", },
+
+         ];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+["第 2 課","これは ノートでは ありません","誕生日(たんじょうび)","日本語の本(にほんごのほん)","時計(とけい)","腕時計(うでどけい)","辞書(じしょ)","綺麗だ(きれいだ)","としょかん「図書館」","どうも","ネクタイ","ケーキ","プレゼント","コーヒー","ノート","おめでとうございます","おめでとう","~は何ですか","これは何ですか。","これはネクタイです。","あれは何ですか。","あれは腕時計です。","それはケーキです。","あれは腕時計です。","田中さんのネクタイはどれですか。","それです。","田中さんのケ ー キはどれですか。","これです。","これはわたしの辞書ではありません。","これはわたしの辞書じゃありません。","それはプレゼントではありません。","それはプレゼントじゃありません。","motorino","metropolitana","automobile","nave","bicicletta","Da lunedì 2 marzo a martedì 31 marzo la linea 13B sarà temporaneamente sospesa","infoclienti","In città ci sono tanti mezzi di trasporto.","Amina prende l'autobus per andare al mercato, Pedro va al lavoro in bicicletta.","In 5 minuti riordina le lettere e trova i nomi, come nell'esempio.","Vince che scrive tutte le parole.","è domenica(1 marzo) e sei alla fermata dell'autobus.","leggi questo cartello e rispondi: sì o no?","oggi posso prendere l'autobus della linea 13B?","tutti gli autobus in città sono fermi nel mese di marzo?","domani devo andare ad aspettare l'autobus della linea 13B a un'altra fermata_","domani posso prendere un autobus di un'altra linea_","a che ora arrivate?","alle tre. Per te va bene?","certo! Venite a piedi o preferite prendere l'autobus ","abiti lontano dalla stazione?","Non molto","allora veniamo a piedi. Quale strada facciamo?","è facile. Fuori dalla stazione, andate in corso milano. Arrivate fino alla fine della strada e trovate via gramsci.","girate a destra e camminate fino al semaforo.","sì, ho capito. E poi?","al semaforo girate a sinistra, in via diaz, passate davanti a una banca, poi andate a destra in via cavour e... Siete arrivate!","abiti in via cavour?","sì, al numero 54. davanti a casa mia c'è una pizzeria.","va bene. A dopo.","vi aspetto!","cosa vedi quando guardi fuori dalla finestra della tua casa?","vedo un cinema, un palazzo, un ufficio postale, un parco quando guardo fuori dalla finestra della mia casa.","studio dentistico","dentista","scusi, dov'è la fermata degli autobus?","è in via mazzini, di fronte al supermercato.","guarda la cartina e completa le risposte sotto con queste parole, come nell'esempio.","scusi, dov'è l'ospedale?","alla fine di via cavour.","scusi, dov'è l'edicola?","di fronte alla pizzeria.","scusi, dov'è la scuola?","all'inizio di corso garibaldi.","scusi, dov'è la farmacia?","tra il bar e il tabaccaio.","scusi, dov'è la questura?","vicino alla biblioteca.","di fianco alla biclioteca.","scusi, dov'è la fermata della metropolitana?","di fronte al tabaccaio.","davanti al tabaccaio.","제1과 이것이 교과서입니까?","물건 이름 말하기","점원","저것","이것","그렇다","사전","집지","읽기책","책상","지갑","연필","자","지우개","볼펜","돈","가드","여권","신분증","가방","손수건","모자","거울","휴지","공책","열쇠","수첩","과자","종이","필통","부자"," 이것이 책상입니다.","여기가 학교입니다.","이것이 책입니까?","친구가 많습니다.","의자가 없습니다.","내가 말했습니다.","네가 가?","제가 김영수입니다.","누가 왔습니까?","이 책이 사전입니까?","이 연필이 제 연필입니다.","이 이야기를 누가 압니까?","사전입니다.",]
+
+
+;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+
+</body>
+
+
+</html>

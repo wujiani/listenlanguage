@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 100px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+            padding-bottom: 50px; /* 添加底部间距 */
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+
+    <script src="2024-02-28.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+
+{id: "button1", text: "(日)姓名", },{id: "button2", text: "(日)上面的名字", },{id: "button3", text: "(日)下面的名字", },{id: "button4", text: "(日)这是礼物，请收下。", },{id: "button5", text: "(日)这是李先生的咖啡。", },{id: "button6", text: "(日)田中先生，早上好。", },{id: "button7", text: "(日)哇，好漂亮。", },{id: "button8", text: "(日)哇，谢谢你。", },{id: "button9", text: "(日)非常感谢。", },{id: "button10", text: "(日)谢啦。", },{id: "button11", text: "(日)谢谢你。", },{id: "button12", text: "(日)李先生，生日快乐。", },{id: "button13", text: "(日)请收下这个。", },{id: "button14", text: "(日)哇，谢谢你。", },{id: "button15", text: "(日)这是什么？是笔记本吗？", },{id: "button16", text: "(日)不，不是笔记本。这是一本日语书。", },{id: "button17", text: "(日)非常感谢。", },{id: "button18", text: "(日)六本木", },{id: "button19", text: "(日)六本木之丘", },{id: "button20", text: "(日)玛曼", },{id: "button21", text: "(日)天空甲板", },{id: "button22", text: "(韩)不要讲这件事。", },{id: "button23", text: "(韩)那本书是教科书。", },{id: "button24", text: "(韩)请给我那支铅笔。", },{id: "button25", text: "(韩)刚才那个男人是谁？", },{id: "button26", text: "(韩)现在没有人没看过那部电影。", },{id: "button27", text: "(韩)你认识那个人。", },{id: "button28", text: "(韩)那座建筑是我们的学校。", },{id: "button29", text: "(韩)这是字典吗？", },{id: "button30", text: "(韩)是的，是字典。", },{id: "button31", text: "(韩)那本书是读物书吗？", },{id: "button32", text: "(韩)是的，是读物书。", },{id: "button33", text: "(韩)那个人是美国人吗？", },{id: "button34", text: "(韩)不，不是美国人。", },{id: "button35", text: "(韩)这是什么？", },{id: "button36", text: "(韩)那是钥匙。", },{id: "button37", text: "(韩)那是包吗？", },{id: "button38", text: "(韩)是的，是包。", },{id: "button39", text: "(韩)那个人是中国人吗？", },{id: "button40", text: "(韩)是的，是中国人。", },{id: "button41", text: "(韩)这是教科书吗？", },{id: "button42", text: "(韩)是的，是教科书。", },{id: "button43", text: "(韩)那么那是什么？", },
+
+         ];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+["名前","上の名前","下の名前","これはプレゼントです。どうぞ。","これは李君のコーヒーです。","田中君、おはよう。","わあ、きれい。","わあ、ありがとうございます。","どうもありがとうございます","どうも","ありがとうございました","李君、誕生日おめでとう。","これ、どうぞ。","わあ、ありがとうございます。","これは何てすか。ノートですか。","いいえ、ノー トではありません。日本語の本です。","どうもありがとうございます。","六本木","六本木ヒルズ","ママン","スカイデッキ","이 사실을 이야기하지 마세요.","그 책은 교과서입니다.","그 연필을 나에게 주십시오.","아까 그 남자가 누구입 니까?","요즘 그 영화를 안 본 사람이 없어요","니는 저 사람을 압니다.","저 건물이 우리 학교입니다.","이것이 사전입니까?","네, 사전입니다.","그 책이 읽기책입니까?","네, 읽기책입니다","저 사람이 미국 사람입니까?","아니요, 미국 사람이 아닙니다","이것이 무엇입니까?","그것은 열쇠입니다.","그것은 가방입니까?","네, 가방입니다.","저 사람이 중국 사람입니까","네, 중국 사람입니다.","이것이 교과서입니까?","네, 그렇습니다.","그럼 저것은 무엇입니까?",]
+
+
+;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+
+</body>
+
+
+</html>

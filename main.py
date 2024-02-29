@@ -21,11 +21,11 @@ def login_and_get_cookies(browser):
 
     # 输入邮箱
     email_input = browser.find_element(By.XPATH, '/html/body/main/section/div/div/div/div/form/div[1]/input')
-    email_input.send_keys('jiani.wu@studenti.unipd.it')
+    email_input.send_keys('19wujiani@163.com')
 
     # 输入密码
     password_input = browser.find_element(By.XPATH, '/html/body/main/section/div/div/div/div/form/div[2]/input')
-    password_input.send_keys('Keita5+1keita')
+    password_input.send_keys('Keitakeita5+1')
 
     # 点击登录按钮
     stay_login_button = browser.find_element(By.CLASS_NAME, 'fa')
@@ -125,7 +125,7 @@ def get_file_paths(date_str):
 
 # 使用示例
 ###############################################
-date_str = '2024-02-27'
+date_str = '2024-02-28'
 ###############################################
 xlsx_path, mp3_path = get_file_paths(date_str)
 

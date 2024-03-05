@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 100px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+            padding-bottom: 50px; /* 添加底部间距 */
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+    <script src="2024-03-02.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+{id: "button1", text: "(公)自相残杀", },{id: "button2", text: "(公)自掘坟墓", },{id: "button3", text: "(公)自投罗网", },{id: "button4", text: "(公)自欺欺人", },{id: "button5", text: "(公)任由", },{id: "button6", text: "(公)纵容", },{id: "button7", text: "(公)搭便车", },{id: "button8", text: "(公)蜂拥而上", },{id: "button9", text: "(公)乏人问津", },{id: "button10", text: "(公)久久为功", },{id: "button11", text: "(公)鸠占鹊巢", },{id: "button12", text: "(公)据为己有", },{id: "button13", text: "(公)坐享其成", },{id: "button14", text: "(公)立竿见影", },{id: "button15", text: "(公)一劳永逸", },{id: "button16", text: "(公)和衷共济", },{id: "button17", text: "(公)平分秋色", },{id: "button18", text: "(公)不相上下", },{id: "button19", text: "(公)分庭抗礼", },{id: "button20", text: "(公)群英荟萃", },{id: "button21", text: "(公)人才济济", },{id: "button22", text: "(公)名家辈出", },{id: "button23", text: "(公)缴获", },{id: "button24", text: "(公)深耕细作", },{id: "button25", text: "(公)浅尝辄止", },{id: "button26", text: "(公)急功近利", },{id: "button27", text: "(公)粗枝大叶", },{id: "button28", text: "(公)好高骛远", },{id: "button29", text: "(公)千金市马骨", },{id: "button30", text: "(公)千年等一回", },{id: "button31", text: "(公)市", },{id: "button32", text: "(公)刚愎自用", },{id: "button33", text: "(公)泥古不化", },{id: "button34", text: "(公)剑走偏锋", },{id: "button35", text: "(公)恃才放旷", },{id: "button36", text: "(公)空前绝后", },{id: "button37", text: "(公)信手拈来", },{id: "button38", text: "(公)一蹴而就", },{id: "button39", text: "(公)荡气回肠", },{id: "button40", text: "(公)开天辟地", },{id: "button41", text: "(公)空中楼阁", },{id: "button42", text: "(公)震耳发聩", },{id: "button43", text: "(公)日行千里", },{id: "button44", text: "(公)团结一心，众志成城，风雨同舟，同舟共济", },{id: "button45", text: "(公)视死如归", },{id: "button46", text: "(公)并行不悖", },{id: "button47", text: "(公)相得益彰", },{id: "button48", text: "(公)齐头并进", },{id: "button49", text: "(公)互为表里", },{id: "button50", text: "(公)珠联璧合", },{id: "button51", text: "(公)相辅相成", },{id: "button52", text: "(公)人云亦云，随波逐流", },{id: "button53", text: "(公)沆瀣一气", },{id: "button54", text: "(公)杀身成仁", },{id: "button55", text: "(公)以身殉道", },{id: "button56", text: "(公)舍生取义", },{id: "button57", text: "(公)视死如归", },{id: "button58", text: "(公)响应", },{id: "button59", text: "(公)呼应", },{id: "button60", text: "(公)照应", },{id: "button61", text: "(公)顺应", },{id: "button62", text: "(公)须臾", },{id: "button63", text: "(公)理念", },{id: "button64", text: "(公)倏忽", },{id: "button65", text: "(公)俄顷", },{id: "button66", text: "(公)擘画", },{id: "button67", text: "(公)汗牛充栋", },{id: "button68", text: "(公)浩如烟海", },{id: "button69", text: "(公)牢不可破", },{id: "button70", text: "(公)颠扑不破", },{id: "button71", text: "(公)鬼斧神工", },{id: "button72", text: "(公)天造地设", },{id: "button73", text: "(公)巧夺天工", },{id: "button74", text: "(公)神来之笔", },{id: "button75", text: "(公)历久弥新", },{id: "button76", text: "(公)陈词滥调", },{id: "button77", text: "(公)驾轻就熟", },{id: "button78", text: "(公)轻车熟路", },{id: "button79", text: "(公)流口常谈", },{id: "button80", text: "(公)节流", },{id: "button81", text: "(公)截流", },{id: "button82", text: "(公)结余", },{id: "button83", text: "(公)节余", },{id: "button84", text: "(公)冰山一角", },{id: "button85", text: "(公)九牛一毛", },{id: "button86", text: "(公)只言片语", },{id: "button87", text: "(公)细枝末节", },{id: "button88", text: "(公)推脱", },{id: "button89", text: "(公)推托", },{id: "button90", text: "(公)无人问津", },{id: "button91", text: "(公)门可罗雀", },{id: "button92", text: "(公)荼毒", },{id: "button93", text: "(公)蹂躏", },{id: "button94", text: "(公)烟消云散", },{id: "button95", text: "(公)销声匿迹", },{id: "button96", text: "(公)筑巢引凤", },{id: "button97", text: "(公)中等收入陷阱", },{id: "button98", text: "(公)管窥", },{id: "button99", text: "(公)洞悉", },{id: "button100", text: "(公)明了", },{id: "button101", text: "(公)左支右绌", },{id: "button102", text: "(公)相形见绌", },{id: "button103", text: "(公)捉襟见肘", },{id: "button104", text: "(公)寅吃卯粮", },{id: "button105", text: "(公)力有不逮", },{id: "button106", text: "(公)力不能及", },{id: "button107", text: "(公)力屈道穷", },{id: "button108", text: "(公)力不从心", },{id: "button109", text: "(公)春秋笔法", },{id: "button110", text: "(公)弦外之音", },{id: "button111", text: "(公)微言大意", },{id: "button112", text: "(公)弹冠相庆", },{id: "button113", text: "(公)低头折节", },{id: "button114", text: "(公)额手称庆", },{id: "button115", text: "(公)击节赞叹", },{id: "button116", text: "(公)惦记", },{id: "button117", text: "(公)牵挂", },{id: "button118", text: "(公)建设", },{id: "button119", text: "(公)建造", },{id: "button120", text: "(公)构想", },{id: "button121", text: "(公)计划", },
+
+        ];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts = ["同伴之间相互残杀","自寻死路","自取灾祸自己送死","欺骗自己也欺骗别人","任由抄袭之风盛行","纵容抄袭作者活跃在屏幕上","不想付出行动z","人群拥挤着向前进","没有人探问尝试或者购买","做事持之以恒锲而不舍方能成功","强占别人的房屋土地和位置","本来不属于自己的东西，占据下来归自己所有","自己不出力，享受别人劳动的成果","立即见到功效","一次操劳可获永远安逸","齐心协力，克服困难","双方势均力敌不分高低各分一半","差别不大分不出好坏","双方地位和势力相当，可以相互抗衡","许多才能出众的人聚集在一起","有才能的人很多","人才一批接一批地出现","缴获武器装备","深入挖掘精细研究","略微尝试一下就停止学习，不深入精细钻研、一知半解","基于在短时间内获得成效和利益","做事粗心大意","不切实际地追求过高过远的目标","诚意","耐心","买 卖","固执任性，自以为是，不听别人的意见","拘泥于古代的制度或者说法","不同以往的方法来解决问题，出奇制胜","以仗着自己的才能而对自己的行为不加约束","从前没有过，此后也不会有。语义程度很深","表示容易做 不假思索地，随手拿来","表示容易做一踏脚就能成功","音乐文章十分感人","以前没有过的","虚幻的事情，或脱离实际的理论、计划","醍醐灌顶。聩：天生耳聋 发：开启 声音很大，使耳聋的人也听得见，用语言文字，唤醒不明事理的人","速度很快，一天跑千里之遥","团结","不怕牺牲","同时进行，互不抵触","互相配合，互相补充，各自的长处发挥出来 彰：显示，明显","几方面一起前进","内外统一，相互配合","美好的人或事物凑在一起","互相补充，互相配合","没有主见，只会随声附和","臭味相投的人勾结在一起","为了成全仁义，可以牺牲性命","为追求道义牺牲自己的性命","为了正义而牺牲性命","不怕牺牲生命。没有为道义付出，牺牲之意","响应号召","文章主题之间的呼应","人与人之间相互照应，文章段落前后之间照应","顺应民心，顺应发展趋势","时间很短","健康环保理念","转眼之间","一会儿","筹划布置。擘画未来发展蓝图","藏书多","书籍文献多","观念、习俗、制度牢不可破","理论、学说、法则，颠扑不破、不可摧毁、牢固","技艺精巧，不是人力所能达到的","事物自然形成，合乎理想，不必再加工","精巧的人工胜过天然，形容技艺极其精巧，不能形容大自然","好像有神的帮助而产生的佳作，不能形容大自然","经历长久的时间而更加鲜活，更加有活力，更有价值","陈旧而不切实际的话","驾驶轻便的车，走熟悉的路。对做的事情很熟悉，办起来很容易。","熟悉情况，富有经验，容易把事情办成","老生常谈，人人挂在嘴边的老话","财政上节省支出","截断水流","结算后剩下","节约后剩下","暴露出来的只是事情的一小部分，形容数量少","轻微渺小，微不足道","个别的词句、片段","事情或问题的细小、无关紧要的部分","推卸责任","找理由拒绝","没有人过问，受到冷落，程度较重","来客稀少受到冷落，程度较轻","毒害，词义很重","暴力欺压、侮辱、侵害","事物消失殆尽，流行病不可能烟消云散","藏起来或者不公开","建好基础设施，等待投资者","中等收入陷阱指一个国家因某些优势达到一定收入水准，但停留在该经济水准的情况。陷入中等收入陷阱中的国家，因薪资上涨，失去出口产品的竞争力，既无法与低成本生产的他国竞争，也无法进入高附加值市场，以及加入发达国家的行列。 ","从管子里看，比喻见解狭隘（自谦）","很清楚地知道","清楚的知道、懂得","顾了左边就顾不了右边，形容力量不足，穷于应付","比较后显示出了不足","拉一下衣服就看到了手肘，形容顾此失彼，穷于应付","入不敷出，预先借支","自己的能力实力所不能达到的","力量达不到","力量办法都已用尽","心里想做某件事，但是力量达不到","微言大意，委婉地表达主观看法","言外之意","包含在精微语言里的深刻道理","d弹去帽子上的灰尘，准备做官。这则成语指官场中一人当了官或升了官，同伙就互相庆贺将有官可做；亦用于指即将作官而互相庆贺；后用来形容坏人得意的样子。","丧失气节，屈服于他人","把手放在额上，表示庆幸","对诗文音乐赞赏。表示非常赞赏","口语","书面","建设现代化强国、建设美好家园","建造防洪设施","书面，y体制改革的构想。形成的想法","预先拟定的具体内容和步骤",]
+
+            ;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+</body>
+
+
+</html>

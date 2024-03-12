@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 100px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+            padding-bottom: 50px; /* 添加底部间距 */
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+    <script src="2024-03-11.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+{id: "button1", text: "(日)第四课", },{id: "button2", text: "(日)我会说日语，但我不能很好地使用它。", },{id: "button3", text: "(日)专业せんこう", },{id: "button4", text: "(日)课程じゅぎょう", },{id: "button5", text: "(日)作业しゅくだい", },{id: "button6", text: "(日)东京とうきょう", },{id: "button7", text: "(日)北海道ほっかいどう", },{id: "button8", text: "(日)价格ねだん", },{id: "button9", text: "(日)可爱かわいい", },{id: "button10", text: "(日)但是", },{id: "button11", text: "(日)（不）太", },{id: "button12", text: "(日)稍微/有点", },{id: "button13", text: "(日)稍等一下", },{id: "button14", text: "(日)颜色/色いろ", },{id: "button15", text: "(日)形形色色/各式各样", },{id: "button16", text: "(日)（敬位）位/人かた", },{id: "button17", text: "(日)诸位/各位", },{id: "button18", text: "(日)木村きむら", },{id: "button19", text: "(日)白色しろい", },{id: "button20", text: "(日)黄色きいろい", },{id: "button21", text: "(日)寒冷さむい", },{id: "button22", text: "(日)暖和あたたかい", },{id: "button23", text: "(日)贵/高たかい", },{id: "button24", text: "(日)便宜やすい", },{id: "button25", text: "(日)雨あめ", },{id: "button26", text: "(日)原来如此", },{id: "button27", text: "(日)包/提包", },{id: "button28", text: "(日)连衣裙", },{id: "button29", text: "(日)那个。。。不好意思", },{id: "button30", text: "(日)对不起", },{id: "button31", text: "(意)我可以量吗？", },{id: "button32", text: "(意)我可以换衬衫吗？", },{id: "button33", text: "(意)你明天可以去市场吗？", },{id: "button34", text: "(意)明天早上可以。", },{id: "button35", text: "(意)明天下午不行。", },{id: "button36", text: "(意)星期六早上可以去市场。", },{id: "button37", text: "(意)我不可能付一千欧元的衣服。", },{id: "button38", text: "(意)我可以步行去学校。", },{id: "button39", text: "(意)学校里不可以吸烟。", },{id: "button40", text: "(意)在外面可以吸烟。", },{id: "button41", text: "(意)不能在红灯的时候过马路。", },{id: "button42", text: "(意)明天我得打扫房子。", },{id: "button43", text: "(意)你不能在家里吸烟！", },{id: "button44", text: "(意)你得付房租！", },{id: "button45", text: "(意)你得好好打扫房子。", },{id: "button46", text: "(意)你不能让家门开着。", },{id: "button47", text: "(意)你不能把垃圾扔在地上。", },{id: "button48", text: "(意)你得把纸丢进正确的垃圾桶！", },{id: "button49", text: "(意)一个烂苹果。", },{id: "button50", text: "(意)一份报纸。", },{id: "button51", text: "(意)一个破碎的杯子。", },{id: "button52", text: "(意)一个塑料瓶。", },{id: "button53", text: "(意)一支笔。", },{id: "button54", text: "(意)玻璃。", },{id: "button55", text: "(意)晚上我可以在休息室看电视。", },{id: "button56", text: "(意)我没听懂，你可以再说一遍吗？", },{id: "button57", text: "(意)孩子们可以在花园里玩。", },{id: "button58", text: "(意)安娜因为生病不能工作。", },{id: "button59", text: "(意)你和Samira可以去清真寺。", },{id: "button60", text: "(意)我和Assan可以提前出去吗？", },{id: "button61", text: "(意)Alì因为脚受伤不能踢足球。", },{id: "button62", text: "(意)我生病了：我得去看医生。", },{id: "button63", text: "(意)去车站你得坐54路公交车。", },{id: "button64", text: "(意)Ibrahim得考意大利语的考试。", },{id: "button65", text: "(意)我和Marco得去买手机充电器。", },{id: "button66", text: "(意)你和Sara得学意大利语。", },{id: "button67", text: "(意)穆斯林不能吃猪肉。", },{id: "button68", text: "(意)Amina因为要工作不能来市中心。", },{id: "button69", text: "(意)你愿意跟我一起去市中心吗？不，我不能，因为我得去警察局。", },{id: "button70", text: "(意)Maria得去坐火车但是她不能，因为她没买票。", },{id: "button71", text: "(意)要在意大利生活，我们得有文件。", },{id: "button72", text: "(意)Bouka不能跑，因为他的腿受伤了。", },{id: "button73", text: "(意)要在意大利工作，你们得说意大利语。", },{id: "button74", text: "(意)我和Amina可以去食堂吗？不，现在关门了。", },{id: "button75", text: "(意)妈妈，我可以出去玩吗？不，你得先把功课做完！", },{id: "button76", text: "(意)天冷了，我戴上围巾。", },{id: "button77", text: "(意)罢工。", },{id: "button78", text: "(意)出口。", },{id: "button79", text: "(意)下车。", },{id: "button80", text: "(意)鱼。", },{id: "button81", text: "(意)围巾。", },{id: "button82", text: "(意)毛巾。", },{id: "button83", text: "(意)枕头。", },{id: "button84", text: "(意)火腿。", },{id: "button85", text: "(意)电梯。", },{id: "button86", text: "(意)今天我穿新鞋。", },{id: "button87", text: "(意)盒子。", },{id: "button88", text: "(意)背部。", },{id: "button89", text: "(意)浴缸。", },{id: "button90", text: "(意)饼干。", },{id: "button91", text: "(意)清真寺。", },{id: "button92", text: "(意)折扣。", },{id: "button93", text: "(意)楼梯。", },{id: "button94", text: "(意)扫帚", },
+
+        ];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+            ["第4課","日本語はできますが、よく使えません。","専攻","授業","宿題","東京","北海道","値段","可愛い","でも","あまり","ちょっと","ちょっと待って","色","いろいろ","方","かたがた","木村","白い","黄色い","寒い","暖かい","高い","安い","雨","なるほど","かばん","ワンピース","あの、すみません","ごめんなさい","posso misurare?","posso cambiare la maglia?","puoi andare al mercato domani?","domani mattina posso.","domani pomeriggio non posso.","sabato mattina posso andare al mercato.","io non posso pagare un vestito mille euro.","io posso venire a scuola a piedi.","a scuola non si può fumare.","in strada si può fumare.","non si può attraversare la strada con il semaforo rosso.","domani io devo pulire la casa.","tu non devi fumare in casa!","tu devi pagare l'affitto!","tu devi pulire bene la casa","tu non devi lasciare aperto il portone di casa tua.","tu non devi lasciare i rifiuti per terra.","devi buttare la carta nel cassonetto giusto!","una mela vechhia","un giornale","un bicchiere rotto","una bottiglia di plastica","una penna","vetro","la sera io posso guardare la tv in sala relax.","non ho capito, puoi ripetere per favore?","I bambini possono giocare in giardino.","Anna non può lavorare perché è malata.","tu e Samira potete andare in moschea.","io e Assan possiamo uscire prima?","Alì non può giocare a calcio perché si è fatto male al piede.","sono malato: devo andare dal dottore.","per andare in stazione tu devi prendere l'autobus 54.","Ibrahim deve fare il test di italiano.","Io e Marco dobbiamo comprare la ricarica del telefono.","tu e Sara dovete studiare italiano.","I musulmani non devono mangiare carne di maiale.","Amina non può venire in centro perché deve lavorare.","Vuoi venire con me in centro? No, non posso perché devo andare in questura. ","Maria deve prendere il treno ma non può perché non ha comprato il biglietto.","Per vivere in Italia, noi dobbiamo avere i documenti. ","Bouka non può correre, perché ha la gamba rotta.","Per lavorare in Italia, voi dovete parlare italiano.","Io e Amina possiamo andare in mensa? No, adesso è chiusa.","Mamma, posso andare a giocare? No, prima devi finire di studiare!","Fa freddo, metto la sciarpa.","sciopero","uscita","scendere","pesce","sciarpa","asciugamano","cuscino","prosciutto","ascensore","oggi metto le scarpe nuove.","scatola ","schiena","vasca","biscotti","moschea","sconto","scala","scopa",]
+
+            ;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+</body>
+
+
+</html>

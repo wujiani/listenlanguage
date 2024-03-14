@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 100px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+            padding-bottom: 50px; /* 添加底部间距 */
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+    <script src="2024-03-14.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+{id: "button1", text: "(日)这条领带是谁的？", },{id: "button2", text: "(日)这条领带是李先生的。", },{id: "button3", text: "(日)那个蛋糕贵吗？", },{id: "button4", text: "(日)不，这个蛋糕很便宜。", },{id: "button5", text: "(日)哪只手表是李先生的？", },{id: "button6", text: "(日)哪个是李先生的？", },{id: "button7", text: "(日)这只手表是李先生的。", },{id: "button8", text: "(日)这个是李先生的。", },{id: "button9", text: "(日)田中先生是哪位？", },{id: "button10", text: "(日)这位是田中先生。", },{id: "button11", text: "(日)哪位是木村先生？", },{id: "button12", text: "(日)那位是木村先生。", },{id: "button13", text: "(日)李先生的专业也是日语。", },{id: "button14", text: "(日)这个人也是韩国人。", },{id: "button15", text: "(日)这位也是韩国人。", },{id: "button16", text: "(日)东京冷吗？", },{id: "button17", text: "(日)不，不冷。", },{id: "button18", text: "(日)不，不冷。", },{id: "button19", text: "(日)价格贵吗？", },{id: "button20", text: "(日)不，不算太贵。", },{id: "button21", text: "(日)不，不算太贵。", },{id: "button22", text: "(日)天气好吗？", },{id: "button23", text: "(日)不，天气不好。", },{id: "button24", text: "(日)不，天气不好。", },{id: "button25", text: "(日)那边", },{id: "button26", text: "(日)那位", },{id: "button27", text: "(日)你", },{id: "button28", text: "(日)客人", },{id: "button29", text: "(日)前辈", },
+
+        ];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+            ["このネクタイは誰のですか。","このネクタイは李さんのです。","そのケーキは高いですか。","いいえ、このケーキは安いです。","どの腕時計が李さんのですか。","どれが李さんのですか。","この腕時計が李さんのです。","これが李さんのです。","田中さんはどの方ですか。","この方です。","どの方が木村さんですか。","あの方です。","李さんの専攻も日本語です。","この人も韓国人です。","この方も韓国人です。","東京は寒いですか。","いいえ、寒くありません。","いいえ、寒くないです。","値段は高いですか。","いいえ、あまり高くありません。","いいえ、あまり高くないです。","天気がいいですか。","いいえ、天気がよくないです。","いいえ、天気がよくありません。","あちらのほう","あちらのかた","あなた","お客様","先輩",]
+
+            ;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+</body>
+
+
+</html>

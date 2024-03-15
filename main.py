@@ -125,7 +125,7 @@ def get_file_paths(date_str):
 
 # 使用示例
 ###############################################
-date_str = '2024-03-14'
+date_str = '2024-03-15'
 ###############################################
 xlsx_path, mp3_path = get_file_paths(date_str)
 
@@ -139,8 +139,8 @@ workbook = openpyxl.load_workbook(xlsx_path)
 # workbook = load_workbook(excel_file)
 
 languages = {
-            'jp':('ja-JP', 'ja-JP-Takumi-NTTS'),
-             # 'it':('it-IT', 'it-IT-BenignoNeural'),
+            # 'jp':('ja-JP', 'ja-JP-Takumi-NTTS'),
+             'it':('it-IT', 'it-IT-BenignoNeural'),
              # 'kr':('ko-KR', 'ko-KR-JennyMultilingualV2Neural')
             }
 

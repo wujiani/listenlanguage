@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音频</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-top: 100px; /* 添加顶部间距 */
+        }
+
+        .container {
+            height: 100vh; /* 设置容器高度为视口高度 */
+//            overflow-y: auto; /* 允许垂直滚动 */
+        }
+
+
+        .audioButtonsContainer {
+            text-align: center;
+            padding-bottom: 50px; /* 添加底部间距 */
+        }
+
+        .audioButton {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 调整按钮之间的垂直间距 */
+        }
+
+        .iconButton {
+            margin-left: 5px; /* 调整按钮之间的水平间距 */
+            cursor: pointer;
+        }
+
+        .audioButton span {
+            font-size: 0.8em; /* 将文字大小放大一倍 */
+        }
+
+        .audioButton .iconButton {
+            font-size: 0.8em; /* 图标大小保持原样 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="goBack" style="position: fixed; top: 20px; left: 20px;">返回第一页</button>
+
+    <div class="container">
+        <div class="audioButtonsContainer" id="audioButtonsContainer">
+        </div>
+    </div>
+    <script src="2024-03-15.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script>
+        // 获取返回按钮
+        const goBackButton = document.getElementById('goBack');
+
+        // 添加点击事件监听器
+        goBackButton.addEventListener('click', function() {
+            // 返回到第一个页面
+            window.location.href = '../../../../index.html';
+        });
+
+
+        // 定义按钮信息数组
+        const buttons = [
+{id: "button1", text: "(日)不客气", },{id: "button2", text: "(日)特产 おみやげ", },{id: "button3", text: "(日)飞行员", },{id: "button4", text: "(日)他(かれ)", },{id: "button5", text: "(日)她/女朋友(かのじよ)", },{id: "button6", text: "(日)那人", },{id: "button7", text: "(日)男朋友(かれし)", },{id: "button8", text: "(日)你是小王吗？", },{id: "button9", text: "(日)是的，我是小王。", },{id: "button10", text: "(日)你是小王吗？", },{id: "button11", text: "(日)是的，我是小王。", },{id: "button12", text: "(日)你是木村吗？", },{id: "button13", text: "(日)不，我不是木村。我是田中。", },{id: "button14", text: "(日)他是谁？", },{id: "button15", text: "(日)啊，抱歉！", },{id: "button16", text: "(日)哎，李先生！", },{id: "button17", text: "(日)这是小王的书吗？", },{id: "button18", text: "(日)是，是的。", },{id: "button19", text: "(日)是，是的。", },{id: "button20", text: "(日)今天是，嗯，樱老师的生日对吧。", },{id: "button21", text: "(日)嗯，这是李先生的词典对吧。", },{id: "button22", text: "(意)鞋子", },{id: "button23", text: "(意)扫帚", },{id: "button24", text: "(意)学校", },{id: "button25", text: "(意)苍蝇", },{id: "button26", text: "(意)唱片", },{id: "button27", text: "(意)围巾", },{id: "button28", text: "(意)靠垫", },{id: "button29", text: "(意)鱼", },{id: "button30", text: "(意)电梯 ", },{id: "button31", text: "(意)SC字母组合对应两个不同的音", },{id: "button32", text: "(意)按对子，在表格中正确填写这些单词，就像示例一样。", },{id: "button33", text: "(意)梯子", },{id: "button34", text: "(意)滑雪", },{id: "button35", text: "(意)大使馆", },{id: "button36", text: "(意)盾牌", },{id: "button37", text: "(意)苍蝇", },{id: "button38", text: "(意)男性的", },{id: "button39", text: "(意)头盔", },{id: "button40", text: "(意)面具", },{id: "button41", text: "(意)盒子", },{id: "button42", text: "(意)带子", },{id: "button43", text: "(意)游泳池", },{id: "button44", text: "(意)在邮局", },{id: "button45", text: "(意)请在文本中划线显示客户需要执行的操作，就像例子中一样。", },{id: "button46", text: "(意)请给我一张缴费单，好吗？我需要支付学校的税款。", },{id: "button47", text: "(意)给您。", },{id: "button48", text: "(意)谢谢。您有笔吗？", },{id: "button49", text: "(意)没有，很抱歉。", },{id: "button50", text: "(意)早上好，我需要寄这个挂号信到法国。多少钱？", },{id: "button51", text: "(意)它重15克…… 4欧元30分。", },{id: "button52", text: "(意)我想申请居留许可。", },{id: "button53", text: "(意)您需要填写黄色的表格。", },{id: "button54", text: "(意)多少钱？", },{id: "button55", text: "(意)是免费的。", },{id: "button56", text: "(意)阅读指示并检查邮局存折的左侧。", },{id: "button57", text: "(意)有3个错误。哪些是错误的？", },{id: "button58", text: "(意)与同伴交谈。", },{id: "button59", text: "(意)然后，在右侧写下正确的存折内容。", },{id: "button60", text: "(意)学生的名字", },{id: "button61", text: "(意)支付四月和五月的学校餐费", },{id: "button62", text: "(意)您在邮局，与一名职员交谈。划线显示正确的形式。", },{id: "button63", text: "(意)早上好，我需要寄一个包裹到希腊。多少钱？", },{id: "button64", text: "(意)请问有一支笔吗？", },{id: "button65", text: "(意)请问能给我一个挂号信的表格吗？", },{id: "button66", text: "(意)他需要填写黄色的表格。", },{id: "button67", text: "(意)请问有身份证吗？", },{id: "button68", text: "(意)你用借记卡支付吗？", },{id: "button69", text: "(意)请与一个同伴确认。", },{id: "button70", text: "(意)右边有寄挂号信的表格。", },{id: "button71", text: "(意)连接单词与正确的含义，如示例所示。", },{id: "button72", text: "(意)收信人", },{id: "button73", text: "(意)接受信件的人", },{id: "button74", text: "(意)街道号码", },{id: "button75", text: "(意)街道号码", },{id: "button76", text: "(意)邮政编码", },{id: "button77", text: "(意)邮政编码", },{id: "button78", text: "(意)省份", },{id: "button79", text: "(意)省份", },{id: "button80", text: "(意)发信人", },{id: "button81", text: "(意)发送信件的人", },{id: "button82", text: "(意)收据", },{id: "button83", text: "(意)收据", },{id: "button84", text: "(意)这是收据。", },{id: "button85", text: "(意)您好！您想要什么？", },{id: "button86", text: "(意)大使", },{id: "button87", text: "(意)领事", },{id: "button88", text: "(意)贪嘴的", },{id: "button89", text: "(意)过敏的", },{id: "button90", text: "(意)鱿鱼", },{id: "button91", text: "(意)乌贼", },{id: "button92", text: "(公)表示一次行动就完成所有本应分期做完的事。", },
+
+        ];
+
+        // 生成按钮并添加点击事件处理程序
+        const container = document.getElementById('audioButtonsContainer');
+        buttons.forEach(button => {
+            const div = document.createElement('div');
+            div.classList.add('audioButton');
+            div.id = button.id;
+            div.onclick = function() {
+                toggleAudio(button.id);
+            };
+            const span = document.createElement('span');
+            span.textContent = button.text;
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('iconButton');
+            buttonElement.onclick = function(event) {
+                toggleMessage(button.id, event.target);
+            };
+            buttonElement.textContent = '🔊';
+            div.appendChild(span);
+            div.appendChild(buttonElement);
+            container.appendChild(div);
+        });
+
+        function toggleAudio(buttonId) {
+            // Add your audio play logic here
+            console.log("Playing audio for button: " + buttonId);
+        }
+
+        function toggleMessage(buttonId, iconButton) {
+            // 定义按钮文本内容数组
+            const buttonTexts =
+            ["どういたしまして","お土産","パイロット","彼","彼女","あの人","彼氏","あなたは王さんですか。","はい、わたしは王です。","王さんですか。","はい、王です。","木村さんですか。","いいえ、木村ではありません。田中です。","彼は誰ですか。","あっ、すみません!","あっ、李さん!","これは王さんの本ですか。","はい、そうです。","ええ、そうだ。","今日は、ええと、桜先生の誕生日ですね。","ええと、これは李さんの辞書ですね。","scarpa","scopa","scuola","mosche","dischi","sciarpa","cushino","pesce","ascensore","il gruppo di lettere SC corrisponde a due suoni diversi","a coppie, scrivete queste parole al posto giusto nella tabella, come negli esempi.","scala","sciare","ambasciata","scudo","mosca","maschile","caschi","maschere","scatola","fasce","piscina","all'ufficio postale","sottolinea nel testo l'operazione che deve fare il cliente, come nell'esempio.","Mi dà un bollettino, per favore? Devo pagare le tasse della scuola.","Ecco a Lei.","Grazie. Ha una penna?","No, mi dispiace.","Buogiorno, devo spedire questa raccomandata in Francia. Quanto costa?","Pesa 15 grammi... Costa 4 euro e 30 centesimi.","Vorrei fare la richiesta per il permesso di soggiorno.","Deve compliare il kit giallo.","Quanto costa?","è gratuito.","Leggi le indicazioni e controlla la parte sinistra del bollettino di conto corrente postale.","Ci sono 3 errori. Quali?","Parla con un compagno.","Poi scrivi il bolletino corretto nella parte destra.","il nome dell'alunna","pagare la mensa scolastica per i mesi di aprile e maggio","Sei in un ufficio postale, parli con un impiegato. Sottolinea la forma giusta.","Buongiorno, devo spedire un pacco in Grecia. Quanto costa?","Ha una penna, per favore?","Mi può dare un modulo per la raccomandata?","Deve compilare il kit giallo.","Hai un documento di identità?","Paghi con il bancomat?","Controlla con un compagno.","A destra c'è il modulo per spedire una lettera raccomandata.","Collega le parole al significato corretto, come nell'esempio.","destinatario","persona che riceve la lettera","N°. CIV.","numero civio","C.A.P.","codice di avviamento postale","PROV.","provincia","mittente","persona che spedisce la lettera","A.R.","avvio di ricevuta","Ecco la contrino.","Buongiorno! Cosa desidera?","ambasciatore","console","goloso","allergico","polpo","calamaro","（孙中山）不能毕其功于一役",]
+
+            ;
+            // 获取按钮索引
+            const index = parseInt(buttonId.replace('button', '')) - 1;
+            // 切换按钮文本内容
+            iconButton.innerHTML = iconButton.innerHTML === '🔊' ? buttonTexts[index] : '🔊';
+        }
+
+        let formData = new FormData();
+        formData.append('text', "hello");
+        formData.append('voice', "ko-KR-JennyMultilingualV2Neural");
+        formData.append('speed', 3);
+        formData.append('pitch', 0);
+        formData.append('language', "ko-KR");
+
+        $.ajax({
+            type: 'POST',
+            headers: {'Access-Control-Allow-Origin': '*'},
+            url: 'https://ondoku3.com/zh-hans/text_to_speech/',
+            data: formData
+        }).done(function (data) {
+            console.log(data.url);
+        });
+    </script>
+</body>
+
+
+</html>
